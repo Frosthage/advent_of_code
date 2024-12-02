@@ -7,7 +7,7 @@ File.ReadAllLines("input")
     Array.forall (fun x -> x > 0) d || Array.forall (fun x -> x < 0) d)
 |> Array.filter (fun x ->
     let d = x |> Array.windowed 2 |> Array.map (fun x -> x[1] - x[0])
-    Array.forall (fun x -> abs (x) < 4) d)
+    Array.forall (fun x -> abs x < 4) d)
 |> Array.length
 |> printf "Part1 %A\n"
 
@@ -15,7 +15,7 @@ File.ReadAllLines("input")
 File.ReadAllLines("input2")
 |> Array.map (fun x -> x.Split(' ') |> Array.map int)
 |> Array.filter (fun l ->
-    [0..1..l.Length-1]
+    [ 0..1 .. l.Length - 1 ]
     |> List.exists (fun i ->
         let d =
             l
@@ -26,12 +26,8 @@ File.ReadAllLines("input2")
             |> Array.map (fun x -> x[1] - x[0])
 
         let rule_1 = Array.forall (fun x -> x > 0) d || Array.forall (fun x -> x < 0) d
-        
-        let rule_2 = Array.forall (fun x -> abs x < 4) d 
-        
-        rule_1 && rule_2
-        )
-    )
+        let rule_2 = Array.forall (fun x -> abs x < 4) d
+
+        rule_1 && rule_2))
 |> Array.length
 |> printf "Part2 %A\n"
-
