@@ -27,15 +27,7 @@ File.ReadAllLines("input2")
 
         let rule_1 = Array.forall (fun x -> x > 0) d || Array.forall (fun x -> x < 0) d
         
-        let d2 =
-            l
-            |> Array.indexed
-            |> Array.filter (fun (i2, _) -> i <> i2)
-            |> Array.map snd
-            |> Array.windowed 2
-            |> Array.map (fun x -> x[1] - x[0])
-
-        let rule_2 = Array.forall (fun x -> abs x < 4) d2 
+        let rule_2 = Array.forall (fun x -> abs x < 4) d 
         
         rule_1 && rule_2
         )
