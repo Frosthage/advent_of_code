@@ -12,15 +12,13 @@ let pageOrders =
 
 let rec inRightOrder (s: string list) =
     match s with
-    | s when (s.Length = 1) -> true
     | x::xs ->
         let set = Map.tryFind x pageOrders |> Option.defaultValue Set.empty
         if xs |> List.forall (fun e -> Set.contains e set ) = false then
             false
         else
             inRightOrder xs
-    | [] -> failwith "todo"
-    
+    | [] -> true
 
 input[1].Split("\n")
 |> Array.map (fun x -> x.Split(',') |> List.ofArray)
@@ -28,7 +26,6 @@ input[1].Split("\n")
 |> Array.map (fun x -> x[x.Length / 2])
 |> Array.sumBy (fun x -> x |> int)
 |> printf "Part1: %A\n"
-
 
 let compare (a:string) (b:string) =
     let set = Map.tryFind a pageOrders |> Option.defaultValue Set.empty
@@ -41,4 +38,3 @@ input[1].Split("\n")
 |> Array.map (fun x -> x[x.Length / 2])
 |> Array.sumBy (fun x -> x |> int)
 |> printf "Part2: %A"
-
