@@ -6,7 +6,7 @@ let pageOrders =
     input[0].Split("\n")
     |> Array.map _.Split('|')
     |> Array.groupBy (fun x -> x[0])
-    |> Array.map (fun (key, group) -> key, group |> Array.map (fun item -> item[1])) // Projecting example
+    |> Array.map (fun (key, group) -> key, group |> Array.map (fun item -> item[1]))
     |> Array.map (fun (k,v) -> (k, v |> Set.ofArray ))
     |> Map.ofArray
 
