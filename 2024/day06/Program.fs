@@ -67,9 +67,7 @@ input
 |> Array.collect id
 |> Array.filter (fun xx -> (fst xx) <> (x,y))
 |> Array.map fst
-|> Array.filter (fun (rx, ry) ->
-    printf "%A\n" (rx,ry)
-    traverse2 x y (0, -1) (rx, ry) Set.empty)
+|> Array.Parallel.filter (fun (rx, ry) -> traverse2 x y (0, -1) (rx, ry) Set.empty)
 |> Array.length
 |> printf "Part2: %A"
 
