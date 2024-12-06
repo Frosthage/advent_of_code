@@ -38,3 +38,8 @@ input[1].Split("\n")
 |> Array.map (fun x -> x[x.Length / 2])
 |> Array.sumBy (fun x -> x |> int)
 |> printf "Part2: %A"
+
+
+[1;2;3;4;5;6;7]
+|> List.iter (printf "%A\n")
+|> printf "%A"
