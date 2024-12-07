@@ -61,10 +61,28 @@ let rec traverse2 x y (dx, dy) (rx, ry) (visits: Set<int * int * int * int>) =
         else
             traverse2 (x+dx) (y+dy) (dx,dy) (rx,ry) newVisits
             
+            
+let rec trail x y (dx, dy) (visits: Set<int * int>) =
+    let nx = x + dx
+    let ny = y + dy
+    let newVisits = visits.Add(x, y)
 
-input
-|> Array.mapi (fun i y -> y |> Array.mapi (fun ii c -> ((ii, i), c)))
-|> Array.collect id
+    match (nx, ny) with
+    | -1, _ -> newVisits
+    | _, -1 -> newVisits
+    | nx, ny when (nx = maxX || ny = maxY) -> newVisits
+    | nx, ny ->
+        let c = input[ny][nx]
+
+        if c = '#' then
+            let newDx, newDy = rotate (dx, dy)
+            trail (x + newDx) (y + newDy) (newDx, newDy) newVisits
+        else
+            trail nx ny (dx, dy) newVisits
+
+(trail x y (0,-1) Set.empty)
+|> Set.toArray
+|> Array.map (fun (x,y) -> ((x,y), input[y][x]))
 |> Array.filter (fun xx -> (fst xx) <> (x,y))
 |> Array.map fst
 |> Array.Parallel.filter (fun (rx, ry) -> traverse2 x y (0, -1) (rx, ry) Set.empty)
