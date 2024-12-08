@@ -32,13 +32,6 @@ antionodes
 |> Seq.length
 |> printf "Part1: %A\n"
 
-
-let old =
-    antionodes
-    |> Seq.filter (fun (_, (x, y)) -> not (x < 0 || x >= maxX || y < 0 || y >= maxY))
-    |> Seq.map snd
-    |> Seq.distinct
-
 let antionodes2 =
     seq {
         for KeyValue(k, coordinates) in input do
@@ -61,4 +54,4 @@ antionodes2
 |> Seq.map snd
 |> Seq.distinct
 |> Seq.length
-|> printf "%A"
+|> printf "Part2: %A"
