@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="AOCTemplate\Program.fs" />
-    <Content Include="AOCTemplate\example">
+    <Compile Include="day07\Program.fs" />
+    <Content Include="day07\example">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AOCTemplate\input">
+    <Content Include="day07\input">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
