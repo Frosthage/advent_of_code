@@ -1,7 +1,7 @@
 ﻿open System.IO
 
 
-let input = File.ReadAllLines("input") |> Array.map _.ToCharArray()
+let input = File.ReadAllLines("example2") |> Array.map _.ToCharArray()
 
 let length = input.Length
 
@@ -47,9 +47,40 @@ List.allPairs [0..length-1] [0..length-1]
 |> List.sumBy snd
 |> printfn "Part 1: %A"
 
-
-
-
+List.allPairs [0..length-1] [0..length-1]
+|> List.fold (fun state (x,y) ->
+    let c = input[y][x]
+    let g = buildGraph x y c Set.empty
+    let v = Map.tryFind c state |> Option.defaultValue [g]
+    Map.add c (g::v) state
+) Map.empty<char, List<Set<int*int>>>
+|> Map.toList
+|> List.map (fun (c, s) -> (c, s |> List.distinct) )
+|> List.map (fun (c, s) ->
+    (c, s |> List.sumBy Set.count, s |> List.map (fun x ->
+        x |> Set.toList |> List.map (fun (x,y) -> double x, double y) |> List.map ( fun (x,y) -> [(x-0.5,y-0.5);(x+0.5,y-0.5);(x-0.5,y+0.5);(x+0.5,y+0.5)] ))))
+|> List.map (fun (c,l,s) ->
+    (c,l, s |> List.map ( fun x ->
+        x |> List.collect id
+        |> List.groupBy id
+        |> List.map (fun (k,v) -> (k, v |> List.length))
+        |> List.filter (fun (_,v) -> v = 1 )
+        )
+    ))
+//|> List.map ( fun (c, s) ->
+//    let distinctSets = s |> List.distinct
+//    
+//    let count = distinctSets |> List.map _.Count
+//    let borders = distinctSets
+//                  |> List.map (fun x ->
+//                        x
+//                        |> Set.toList
+//                        |> List.map (fun (xx,yy) -> borderLines xx yy x)
+//                        |> List.length
+//                        )
+//    let mul = List.map2 (fun x y -> x * y) count borders |> List.sum
+//    (c, mul))
+|> printfn "Part 2: %A"
 
         
         
