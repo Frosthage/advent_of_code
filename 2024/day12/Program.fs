@@ -47,6 +47,10 @@ List.allPairs [0..length-1] [0..length-1]
 |> List.sumBy snd
 |> printfn "Part 1: %A"
 
+
+let touchesRegion 
+
+
 List.allPairs [0..length-1] [0..length-1]
 |> List.fold (fun state (x,y) ->
     let c = input[y][x]
@@ -57,29 +61,8 @@ List.allPairs [0..length-1] [0..length-1]
 |> Map.toList
 |> List.map (fun (c, s) -> (c, s |> List.distinct) )
 |> List.map (fun (c, s) ->
-    (c, s |> List.sumBy Set.count, s |> List.map (fun x ->
+    (c, s, s |> List.map (fun x ->
         x |> Set.toList |> List.map (fun (x,y) -> double x, double y) |> List.map ( fun (x,y) -> [(x-0.5,y-0.5);(x+0.5,y-0.5);(x-0.5,y+0.5);(x+0.5,y+0.5)] ))))
-|> List.map (fun (c,l,s) ->
-    (c,l, s |> List.map ( fun x ->
-        x |> List.collect id
-        |> List.groupBy id
-        |> List.map (fun (k,v) -> (k, v |> List.length))
-        |> List.filter (fun (_,v) -> v = 1 )
-        )
-    ))
-//|> List.map ( fun (c, s) ->
-//    let distinctSets = s |> List.distinct
-//    
-//    let count = distinctSets |> List.map _.Count
-//    let borders = distinctSets
-//                  |> List.map (fun x ->
-//                        x
-//                        |> Set.toList
-//                        |> List.map (fun (xx,yy) -> borderLines xx yy x)
-//                        |> List.length
-//                        )
-//    let mul = List.map2 (fun x y -> x * y) count borders |> List.sum
-//    (c, mul))
 |> printfn "Part 2: %A"
 
         
